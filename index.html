@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recargas Free Fire Bolivia - Yape</title>
+    <style>
+        :root {
+            --primary: #ffaa00;
+            --secondary: #ff4a00;
+            --dark: #0a0a0c;
+            --light: #ffffff;
+            --gray: #16161a;
+            --card-bg: #222227;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            margin: 0;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            max-width: 480px;
+            width: 100%;
+            background: var(--gray);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            border: 1px solid #333;
+        }
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            font-size: 24px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            text-shadow: 0 0 10px rgba(255, 170, 0, 0.4);
+        }
+        .subtitle {
+            text-align: center;
+            color: #aaa;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            color: #ddd;
+        }
+        input {
+            width: 100%;
+            padding: 14px;
+            border-radius: 8px;
+            border: 1px solid #444;
+            background: #0a0a0c;
+            color: white;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        input:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        .section-title {
+            font-size: 14px;
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+            color: var(--primary);
+            text-transform: uppercase;
+        }
+        .grid-packages {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .package-card {
+            background: var(--card-bg);
+            border: 2px solid #34343a;
+            padding: 15px 10px;
+            text-align: center;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .package-card:hover {
+            transform: translateY(-2px);
+        }
+        .package-card.selected {
+            border-color: var(--primary);
+            background: rgba(255, 170, 0, 0.1);
+        }
+        .package-card .diamonds {
+            display: block;
+            font-size: 15px;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+        .package-card .price {
+            display: block;
+            font-size: 16px;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        .btn-pay {
+            width: 100%;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            border: none;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 74, 0, 0.4);
+            text-transform: uppercase;
+        }
+        .btn-pay:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 74, 0, 0.5);
+        }
+        #qr-container {
+            display: none;
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+        }
+        .qr-image {
+            width: 240px;
+            height: auto;
+            margin: 15px auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            display: block;
+        }
+        .btn-whatsapp {
+            display: inline-block;
+            width: 100%;
+            background-color: #25D366;
+            color: white;
+            text-decoration: none;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            box-sizing: border-box;
+            margin-top: 15px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+            transition: background-color 0.2s;
+        }
+        .btn-whatsapp:hover {
+            background-color: #20ba5f;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>¡Oferta de Diamantes!</h1>
+    <div class="subtitle">Mejor Precio, Entregas Rápidas</div>
+    
+    <!-- ID de Jugador -->
+    <div class="form-group">
+        <label for="player-id">ID del Jugador Free Fire</label>
+        <input type="number" id="player-id" placeholder="Ingresa el ID de cuenta" required>
+    </div>
+
+    <!-- Paquetes de Diamantes -->
+    <div class="section-title">Diamantes Directos</div>
+    <div class="grid-packages">
+        <div class="package-card" onclick="selectPackage(this, '100 + 10 Regalo', 13)">
+            <span class="diamonds">💎 100 + 10</span>
+            <span class="price">13 Bs</span>
+        </div>
+        <div class="package-card" onclick="selectPackage(this, '310 + 31 Regalo', 35)">
+            <span class="diamonds">💎 310 + 31</span>
+            <span class="price">35 Bs</span>
+        </div>
+        <div class="package-card" onclick="selectPackage(this, '520 + 52 Regalo', 50)">
+            <span class="diamonds">💎 520 + 52</span>
+            <span class="price">50 Bs</span>
+        </div>
+        <div class="package-card" onclick="selectPackage(this, '1060 + 106 Regalo', 87)">
+            <span class="diamonds">💎 1060 + 106</span>
+            <span class="price">87 Bs</span>
+        </div>
+        <div class="package-card" onclick="selectPackage(this, '2180 + 218 Regalo', 180)">
+            <span class="diamonds">💎 2180 + 218</span>
+            <span class="price">180 Bs</span>
+        </div>
+        <div class="package-card" onclick="selectPackage(this, '5600 + 560 Regalo', 450)">
+            <span class="diamonds">💎 5600 + 560</span>
+            <span class="price">450 Bs</span>
+        </div>
+    </div>
+
+    <!-- Tarjetas Especiales -->
+    <div class="section-title">Membresías</div>
+    <div class="grid-packages">
+        <div class="package-card" onclick="selectPackage(this, 'Tarjeta Semanal', 17)">
+            <span class="diamonds">📋 Tarjeta Semanal</span>
+            <span class="price">17 Bs</span>
+        </div>
+        <div class="package-card" onclick="selectPackage(this, 'Tarjeta Mensual', 85)">
+            <span class="diamonds">📅 Tarjeta Mensual</span>
+            <span class="price">85 Bs</span>
+        </div>
+    </div>
+
+    <button class="btn-pay" onclick="procesarPago()">Mostrar QR de Yape</button>
+
+    <!-- Ventana de Pago -->
+    <div id="qr-container">
+        <h3 style="color: #d17be7;">Escanea con tu App Yape</h3>
+        <p>Monto a transferir: <span id="monto-total" style="color: var(--primary); font-weight: bold; font-size: 22px;"></span></p>
+        
+        <!-- QR de Yape -->
+        <img class="qr-image" id="qr-image" src="https://tu-url-del-qr.com/qr-yape.png" alt="QR Yape Hugo Uscamayta">
+        
+        <p style="font-size: 14px; color: #ccc; padding: 0 10px; margin-bottom: 20px;">
+            <strong>Paso 1:</strong> Escanea el código QR y paga la cantidad exacta desde Yape.<br>
+            <strong>Paso 2:</strong> Haz clic abajo para enviar tu comprobante e ID por WhatsApp.
+        </p>
+
+        <a id="whatsapp-link" class="btn-whatsapp" href="#" target="_blank">Enviar Comprobante por WhatsApp</a>
+    </div>
+</div>
+
+<script>
+    let selectedName = "";
+    let selectedPrice = 0;
+    
+    // Configuración de Hugo Uscamayta
+    const MI_TELEFONO = "59163159230"; // Número de Yape Bolivia
+    const QR_IMAGE_URL = "https://tu-url-del-qr.com/qr-yape.png"; // Reemplazar con URL real
+
+    function selectPackage(element, name, price) {
+        document.querySelectorAll('.package-card').forEach(card => card.classList.remove('selected'));
+        element.classList.add('selected');
+        selectedName = name;
+        selectedPrice = price;
+    }
+
+    function procesarPago() {
+        const playerId = document.getElementById('player-id').value;
+        
+        if (!playerId) {
+            alert('Por favor, introduce el ID de tu cuenta de Free Fire.');
+            return;
+        }
+        if (selectedPrice === 0) {
+            alert('Por favor, selecciona un paquete de diamantes o membresía.');
+            return;
+        }
+
+        document.getElementById('monto-total').innerText = `${selectedPrice} Bs`;
+        document.getElementById('qr-image').src = QR_IMAGE_URL;
+        document.getElementById('qr-container').style.display = 'block';
+        document.getElementById('qr-container').scrollIntoView({ behavior: 'smooth' });
+
+        // Mensaje automático con los datos del cliente
+        const mensajeTexto = `¡Hola Hugo! Acabo de hacer un Yapeo de ${selectedPrice} Bs por el paquete: *${selectedName}*.
+
+🎮 *ID de Free Fire:* ${playerId}
+
+Adjunto mi captura de pantalla de la transacción.`;
+        const urlWhatsapp = `https://wa.me/${MI_TELEFONO}?text=${encodeURIComponent(mensajeTexto)}`;
+        
+        document.getElementById('whatsapp-link').href = urlWhatsapp;
+    }
+</script>
+
+</body>
+</html>
