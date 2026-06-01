@@ -134,16 +134,19 @@
             padding-top: 20px;
             border-top: 1px solid #333;
         }
+        .qr-wrapper {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            margin: 15px auto;
+            width: fit-content;
+            display: inline-block;
+        }
         .qr-image {
             width: 240px;
             height: 240px;
-            margin: 15px auto;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
             display: block;
             object-fit: contain;
-            background: white;
-            padding: 10px;
         }
         .btn-whatsapp {
             display: inline-block;
@@ -230,8 +233,8 @@
         <p>Monto a transferir: <span id="monto-total" style="color: var(--primary); font-weight: bold; font-size: 22px;"></span></p>
         
         <!-- QR de Yape -->
-        <div style="background: white; padding: 15px; border-radius: 12px; margin: 15px auto; width: fit-content;">
-            <img class="qr-image" id="qr-image" src="https://i.ibb.co/SwzDsx30/qr-yape.jpg" alt="QR Yape Hugo Uscamayta" onerror="this.src='https://via.placeholder.com/240?text=QR+Yape'">
+        <div class="qr-wrapper">
+            <img class="qr-image" id="qr-image" src="https://i.ibb.co/TMsDvTgR/qr-1780346353047.png" alt="QR Yape Hugo Uscamayta">
         </div>
         
         <p style="font-size: 14px; color: #ccc; padding: 0 10px; margin-bottom: 20px;">
@@ -249,7 +252,7 @@
     
     // Configuración de Hugo Uscamayta
     const MI_TELEFONO = "59163159230"; // Número de Yape Bolivia
-    const QR_IMAGE_URL = "https://i.ibb.co/SwzDsx30/qr-yape.jpg"; // URL directa del QR
+    const QR_IMAGE_URL = "https://i.ibb.co/TMsDvTgR/qr-1780346353047.png"; // URL directa del QR
 
     function selectPackage(element, name, price) {
         document.querySelectorAll('.package-card').forEach(card => card.classList.remove('selected'));
