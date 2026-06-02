@@ -98,9 +98,9 @@
             border-color: var(--primary);
             background: rgba(255, 170, 0, 0.1);
         }
-        .package-card .diamonds {
+        .package-card .name {
             display: block;
-            font-size: 15px;
+            font-size: 13px;
             font-weight: bold;
             margin-bottom: 4px;
         }
@@ -184,44 +184,94 @@
     </div>
 
     <!-- Paquetes de Diamantes -->
-    <div class="section-title">Diamantes Directos</div>
+    <div class="section-title">💎 Diamantes Directos</div>
     <div class="grid-packages">
-        <div class="package-card" onclick="selectPackage(this, '100 + 10 Regalo', 13)">
-            <span class="diamonds">💎 100 + 10</span>
+        <div class="package-card" onclick="selectPackage(this, '100 + 10 Bonus', 13)">
+            <span class="name">💎 100 + 10</span>
             <span class="price">13 Bs</span>
         </div>
-        <div class="package-card" onclick="selectPackage(this, '310 + 31 Regalo', 35)">
-            <span class="diamonds">💎 310 + 31</span>
+        <div class="package-card" onclick="selectPackage(this, '310 + 31 Bonus', 35)">
+            <span class="name">💎 310 + 31</span>
             <span class="price">35 Bs</span>
         </div>
-        <div class="package-card" onclick="selectPackage(this, '520 + 52 Regalo', 50)">
-            <span class="diamonds">💎 520 + 52</span>
+        <div class="package-card" onclick="selectPackage(this, '520 + 52 Bonus', 50)">
+            <span class="name">💎 520 + 52</span>
             <span class="price">50 Bs</span>
         </div>
-        <div class="package-card" onclick="selectPackage(this, '1060 + 106 Regalo', 87)">
-            <span class="diamonds">💎 1060 + 106</span>
-            <span class="price">87 Bs</span>
+        <div class="package-card" onclick="selectPackage(this, '1060 + 106 Bonus', 90)">
+            <span class="name">💎 1060 + 106</span>
+            <span class="price">90 Bs</span>
         </div>
-        <div class="package-card" onclick="selectPackage(this, '2180 + 218 Regalo', 180)">
-            <span class="diamonds">💎 2180 + 218</span>
+        <div class="package-card" onclick="selectPackage(this, '2180 + 218 Bonus', 180)">
+            <span class="name">💎 2180 + 218</span>
             <span class="price">180 Bs</span>
         </div>
-        <div class="package-card" onclick="selectPackage(this, '5600 + 560 Regalo', 450)">
-            <span class="diamonds">💎 5600 + 560</span>
-            <span class="price">450 Bs</span>
+        <div class="package-card" onclick="selectPackage(this, '5600 + 560 Bonus', 480)">
+            <span class="name">💎 5600 + 560</span>
+            <span class="price">480 Bs</span>
         </div>
     </div>
 
-    <!-- Tarjetas Especiales -->
-    <div class="section-title">Membresías</div>
+    <!-- Tarjetas -->
+    <div class="section-title">📋 Tarjetas</div>
     <div class="grid-packages">
-        <div class="package-card" onclick="selectPackage(this, 'Tarjeta Semanal', 17)">
-            <span class="diamonds">📋 Tarjeta Semanal</span>
-            <span class="price">17 Bs</span>
+        <div class="package-card" onclick="selectPackage(this, 'Semanal Básica', 8)">
+            <span class="name">📋 Sem. Básica</span>
+            <span class="price">8 Bs</span>
+        </div>
+        <div class="package-card" onclick="selectPackage(this, 'Tarjeta Semanal', 20)">
+            <span class="name">📋 T. Semanal</span>
+            <span class="price">20 Bs</span>
+        </div>
+        <div class="package-card" onclick="selectPackage(this, 'Tarjeta P Booyah', 29)">
+            <span class="name">🎯 P Booyah</span>
+            <span class="price">29 Bs</span>
         </div>
         <div class="package-card" onclick="selectPackage(this, 'Tarjeta Mensual', 85)">
-            <span class="diamonds">📅 Tarjeta Mensual</span>
+            <span class="name">📅 T. Mensual</span>
             <span class="price">85 Bs</span>
+        </div>
+    </div>
+
+    <!-- Paquetes de Aumento -->
+    <div class="section-title">📦 Aumento de Nivel</div>
+    <div class="grid-packages">
+        <div class="package-card" onclick="selectPackage(this, 'Aumento Nivel 6', 3)">
+            <span class="name">⬆️ Nivel 6</span>
+            <span class="price">3 Bs</span>
+        </div>
+        <div class="package-card" onclick="selectPackage(this, 'Aumento Nivel 10', 4)">
+            <span class="name">⬆️ Nivel 10</span>
+            <span class="price">4 Bs</span>
+        </div>
+        <div class="package-card" onclick="selectPackage(this, 'Aumento Nivel 15', 4)">
+            <span class="name">⬆️ Nivel 15</span>
+            <span class="price">4 Bs</span>
+        </div>
+        <div class="package-card" onclick="selectPackage(this, 'Aumento Nivel 20', 4)">
+            <span class="name">⬆️ Nivel 20</span>
+            <span class="price">4 Bs</span>
+        </div>
+        <div class="package-card" onclick="selectPackage(this, 'Aumento Nivel 25', 5)">
+            <span class="name">⬆️ Nivel 25</span>
+            <span class="price">5 Bs</span>
+        </div>
+        <div class="package-card" onclick="selectPackage(this, 'Aumento Nivel 30', 8)">
+            <span class="name">⬆️ Nivel 30</span>
+            <span class="price">8 Bs</span>
+        </div>
+    </div>
+
+    <!-- Evo Pase -->
+    <div class="section-title">🎮 Evo Pase</div>
+    <div class="grid-packages">
+        <div class="package-card" onclick="selectPackage(this, 'Evo Pase 7D', 10)">
+            <span class="name">🎮 Evo 7D</span>
+            <span class="price">10 Bs</span>
+        </div>
+        <div class="package-card" onclick="selectPackage(this, 'Evo Pase 30D', 30)">
+            <span class="name">🎮 Evo 30D</span>
+            <span class="price">30 Bs</span>
         </div>
     </div>
 
@@ -269,7 +319,7 @@
             return;
         }
         if (selectedPrice === 0) {
-            alert('Por favor, selecciona un paquete de diamantes o membresía.');
+            alert('Por favor, selecciona un paquete.');
             return;
         }
 
@@ -279,7 +329,7 @@
         document.getElementById('qr-container').scrollIntoView({ behavior: 'smooth' });
 
         // Mensaje automático con los datos del cliente
-        const mensajeTexto = `¡Hola Hugo! Acabo de hacer un Yapeo de ${selectedPrice} Bs por el paquete: *${selectedName}*.
+        const mensajeTexto = `¡Hola Hugo! Acabo de hacer un Yapeo de ${selectedPrice} Bs por: *${selectedName}*.
 
 🎮 *ID de Free Fire:* ${playerId}
 
