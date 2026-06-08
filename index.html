@@ -110,6 +110,77 @@
             color: var(--primary);
             font-weight: bold;
         }
+        .discount-section {
+            background: #1a1a1f;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 1px solid #333;
+        }
+        .discount-input-group {
+            display: flex;
+            gap: 8px;
+        }
+        .discount-input-group input {
+            flex: 1;
+            text-transform: uppercase;
+        }
+        .btn-apply {
+            padding: 14px 16px;
+            background-color: #666;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+        .btn-apply:hover {
+            background-color: #777;
+        }
+        .discount-message {
+            margin-top: 10px;
+            font-size: 13px;
+            padding: 8px;
+            border-radius: 6px;
+            text-align: center;
+            display: none;
+        }
+        .discount-message.success {
+            display: block;
+            background-color: rgba(37, 211, 102, 0.2);
+            color: #25D366;
+            border: 1px solid #25D366;
+        }
+        .discount-message.error {
+            display: block;
+            background-color: rgba(255, 74, 0, 0.2);
+            color: #ff6b6b;
+            border: 1px solid #ff6b6b;
+        }
+        .price-summary {
+            background: #1a1a1f;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 1px solid #333;
+        }
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        .price-row.total {
+            border-top: 1px solid #333;
+            padding-top: 10px;
+            font-weight: bold;
+            font-size: 16px;
+            color: var(--primary);
+        }
+        .price-row.discount {
+            color: #25D366;
+        }
         .btn-pay {
             width: 100%;
             background: linear-gradient(135deg, var(--secondary), var(--primary));
@@ -275,6 +346,32 @@
         </div>
     </div>
 
+    <!-- Sección de Descuentos -->
+    <div class="discount-section">
+        <label style="margin-bottom: 12px; display: block;">🎁 Código de Descuento (Opcional)</label>
+        <div class="discount-input-group">
+            <input type="text" id="discount-code" placeholder="Ingresa tu código" maxlength="20">
+            <button class="btn-apply" onclick="aplicarDescuento()">Aplicar</button>
+        </div>
+        <div id="discount-message" class="discount-message"></div>
+    </div>
+
+    <!-- Resumen de Precio -->
+    <div class="price-summary">
+        <div class="price-row">
+            <span>Precio Base:</span>
+            <span id="precio-base">0 Bs</span>
+        </div>
+        <div class="price-row discount" id="precio-descuento-row" style="display: none;">
+            <span>Descuento:</span>
+            <span id="precio-descuento">-0 Bs</span>
+        </div>
+        <div class="price-row total">
+            <span>Total a pagar:</span>
+            <span id="precio-total">0 Bs</span>
+        </div>
+    </div>
+
     <button class="btn-pay" onclick="procesarPago()">Mostrar QR de Yape</button>
 
     <!-- Ventana de Pago -->
@@ -299,16 +396,101 @@
 <script>
     let selectedName = "";
     let selectedPrice = 0;
+    let descuentoAplicado = 0;
     
     // Configuración de Hugo Uscamayta
     const MI_TELEFONO = "59163159230"; // Número de Yape Bolivia
     const QR_IMAGE_URL = "https://i.ibb.co/CRnsR7q/Screenshot-20260601-183614.jpg"; // URL directa del QR
+
+    // Códigos de descuento válidos
+    const CODIGOS_DESCUENTO = {
+        "BIENVENIDO": { descuento: 2, minimo: 0, descripcion: "Primera compra" },
+        "PROMO50": { descuento: 2, minimo: 50, descripcion: "Compras de 50 Bs o más" },
+        "PROMO100": { descuento: 5, minimo: 100, descripcion: "Compras de 100 Bs o más" },
+        "DIAMANTE1": { descuento: 1, minimo: 0, paqueteEspecifico: "100 + 10 Bonus", descripcion: "Paquete de 13 Bs" }
+    };
 
     function selectPackage(element, name, price) {
         document.querySelectorAll('.package-card').forEach(card => card.classList.remove('selected'));
         element.classList.add('selected');
         selectedName = name;
         selectedPrice = price;
+        descuentoAplicado = 0;
+        document.getElementById('discount-code').value = "";
+        actualizarPrecio();
+    }
+
+    function aplicarDescuento() {
+        const codigo = document.getElementById('discount-code').value.toUpperCase().trim();
+        const messageDiv = document.getElementById('discount-message');
+
+        if (!selectedPrice) {
+            messageDiv.classList.remove('success');
+            messageDiv.classList.add('error');
+            messageDiv.textContent = "⚠️ Selecciona un paquete primero";
+            return;
+        }
+
+        if (!codigo) {
+            messageDiv.classList.remove('success', 'error');
+            messageDiv.style.display = 'none';
+            descuentoAplicado = 0;
+            actualizarPrecio();
+            return;
+        }
+
+        const codigoData = CODIGOS_DESCUENTO[codigo];
+
+        if (!codigoData) {
+            messageDiv.classList.remove('success');
+            messageDiv.classList.add('error');
+            messageDiv.textContent = "❌ Código inválido";
+            descuentoAplicado = 0;
+            actualizarPrecio();
+            return;
+        }
+
+        // Validar si es un descuento específico para un paquete
+        if (codigoData.paqueteEspecifico && selectedName !== codigoData.paqueteEspecifico) {
+            messageDiv.classList.remove('success');
+            messageDiv.classList.add('error');
+            messageDiv.textContent = "❌ Este código solo aplica al paquete de 13 Bs";
+            descuentoAplicado = 0;
+            actualizarPrecio();
+            return;
+        }
+
+        // Validar monto mínimo
+        if (selectedPrice < codigoData.minimo) {
+            messageDiv.classList.remove('success');
+            messageDiv.classList.add('error');
+            messageDiv.textContent = `❌ Monto mínimo: ${codigoData.minimo} Bs`;
+            descuentoAplicado = 0;
+            actualizarPrecio();
+            return;
+        }
+
+        // Aplicar descuento
+        descuentoAplicado = codigoData.descuento;
+        messageDiv.classList.remove('error');
+        messageDiv.classList.add('success');
+        messageDiv.textContent = `✅ Descuento aplicado: -${descuentoAplicado} Bs`;
+        actualizarPrecio();
+    }
+
+    function actualizarPrecio() {
+        const precioBase = selectedPrice;
+        const precioFinal = Math.max(0, precioBase - descuentoAplicado);
+
+        document.getElementById('precio-base').textContent = `${precioBase} Bs`;
+        document.getElementById('precio-total').textContent = `${precioFinal} Bs`;
+
+        if (descuentoAplicado > 0) {
+            document.getElementById('precio-descuento-row').style.display = 'flex';
+            document.getElementById('precio-descuento').textContent = `-${descuentoAplicado} Bs`;
+        } else {
+            document.getElementById('precio-descuento-row').style.display = 'none';
+        }
     }
 
     function procesarPago() {
@@ -323,21 +505,30 @@
             return;
         }
 
-        document.getElementById('monto-total').innerText = `${selectedPrice} Bs`;
+        const precioFinal = Math.max(0, selectedPrice - descuentoAplicado);
+        document.getElementById('monto-total').innerText = `${precioFinal} Bs`;
         document.getElementById('qr-image').src = QR_IMAGE_URL;
         document.getElementById('qr-container').style.display = 'block';
         document.getElementById('qr-container').scrollIntoView({ behavior: 'smooth' });
 
         // Mensaje automático con los datos del cliente
-        const mensajeTexto = `¡Hola Hugo! Acabo de hacer un Yapeo de ${selectedPrice} Bs por: *${selectedName}*.
+        let mensajeTexto = `¡Hola Hugo! Acabo de hacer un Yapeo de ${precioFinal} Bs por: *${selectedName}*.
 
-🎮 *ID de Free Fire:* ${playerId}
+🎮 *ID de Free Fire:* ${playerId}`;
 
-Adjunto mi captura de pantalla de la transacción.`;
+        if (descuentoAplicado > 0) {
+            mensajeTexto += `\n💰 *Descuento aplicado:* -${descuentoAplicado} Bs`;
+        }
+
+        mensajeTexto += `\n\nAdjunto mi captura de pantalla de la transacción.`;
+
         const urlWhatsapp = `https://wa.me/${MI_TELEFONO}?text=${encodeURIComponent(mensajeTexto)}`;
         
         document.getElementById('whatsapp-link').href = urlWhatsapp;
     }
+
+    // Inicializar precios
+    actualizarPrecio();
 </script>
 
 </body>
